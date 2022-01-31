@@ -3,65 +3,69 @@
 @model WebCollection.Models.ViewModels.ItemEditViewModel
 @inject UserManager<IdentityUser> UserManager
 
+    @if (Model.CollectionUserId == UserManager.GetUserId(User)) {
 
 
-<h2>Предмет</h2>
+
+    <h2>Предмет</h2>
 
 
-   
-    
-        <form asp-action="Save" asp-controller="Item" method="post" >
-    <p>
-        <label>Name</label>
-        <input name="Name" class="form-control" required/>
-    </p>
-     <p>
-        <label>Tag</label>
-        <input name="Tag" class="form-control" required/>
-    </p>
 
-    <p>
-        @foreach(var field in Model.IItem.GetCollectionFields(Model.CollectionId)) {
-             <input type="hidden" id="TypeId" name="TypeId" value=@field.FieldTypeId /> 
-            switch (Model.IItem.GetType(field.FieldTypeId)) {
-                case "Number":
-                    <input name="Values" type="number" class="form-control" type="text" placeholder="@field.Name" required />
-                    break;
-                case "Checkbox":
-                @field.Name
-                <label><input type="radio" checked name="Values" value="true"/>Yes</label> <label><input type="radio" value="false" name="Values"/>No</label>
-                
-                  <br />
-                    break;
-                case "Text":
-                @field.Name
-                <textarea cols="10" rows="3" name="Values" ></textarea>
-                
 
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.0.20/tinymce.min.js"></script>
-        <script type="text/javascript">
-            tinymce.init({ selector: 'textarea', width: 500 });
-                    </script>
-                    break;
-                case "Date":
-                <label for="date">@field.Name </label>
-                <input type="date" id="date" name="Values" required/><br />
-                    break;
-                default:
-                <input name="Values" class="form-control" type="text" placeholder="@field.Name" required />
-                    break;
+    <form asp-action="Save" asp-controller="Item" method="post" >
+        <p>
+            <label>Name</label>
+            <input name="Name" class="form-control" required/>
+        </p>
+        <p>
+            <label>Tag</label>
+            <input name="Tag" class="form-control" required/>
+        </p>
+
+        <p>
+            @foreach (var field in Model.IItem.GetCollectionFields(Model.CollectionId)) {
+                <input type="hidden" id="TypeId" name="TypeId" value=@field.FieldTypeId />
+                switch (Model.IItem.GetType(field.FieldTypeId)) {
+                    case "Number":
+                        <input name="Values" type="number" class="form-control" type="text" placeholder="@field.Name" required />
+                        break;
+                    case "Checkbox":
+                        @field.Name
+                        <label><input type="radio" checked name="Values" value="true"/>Yes</label> <label><input type="radio" value="false" name="Values"/>No</label>
+
+                        <br />
+                        break;
+                    case "Text":
+                        @field.Name
+                        <textarea cols="10" rows="3" name="Values" ></textarea>
+
+
+                        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.0.20/tinymce.min.js"></script>
+                        <script type="text/javascript">
+                            tinymce.init({ selector: 'textarea', width: 500 });
+                        </script>
+                        break;
+                    case "Date":
+                        <label for="date">@field.Name </label>
+                        <input type="date" id="date" name="Values" required/><br />
+                        break;
+                    default:
+                        <input name="Values" class="form-control" type="text" placeholder="@field.Name" required />
+                        break;
+                }
+
             }
-            
-        }
-    </p>
+        </p>
 
-    <p>
-        <input type="submit" value="Добавить" />
-    </p> 
-     <input type="hidden" id="collectionId" name="collectionId" value=@Model.CollectionId /> 
-      <input type="hidden" id="Id" name="Id" value=@Model.Id /> 
-        </form>
-          @Html.ActionLink("Back", "GetCollection", "Item", new {id = @Model.CollectionId})
+        <p>
+            <input type="submit" value="Добавить" />
+        </p> 
+        <input type="hidden" id="collectionId" name="collectionId" value=@Model.CollectionId /> 
+        <input type="hidden" id="Id" name="Id" value=@Model.Id /> 
+
+    </form>
+}
+@Html.ActionLink("Back", "GetCollection", "Item", new {id = @Model.CollectionId})
 
           
 

@@ -5,5 +5,6 @@ namespace WebCollection.Models.ViewModels {
     public class ItemIndexViewModel {
         public IItem IItem { get; set; }
         public Collection Collection { get; set; }
+        public int ItemId { get; set; }
     }
 }

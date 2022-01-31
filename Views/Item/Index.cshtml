@@ -16,8 +16,9 @@
                    
                 </div>
             </div>
-
-            <a href="/Item/Create/@Model.Collection.Id" class="btn btn-success">Create Item</a>
+            @if (Model.Collection.UserId == UserManager.GetUserId(User)) {
+        <a href="/Item/Create/@Model.Collection.Id" class="btn btn-success">Create Item</a>
+    }
 
             
             

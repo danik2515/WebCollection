@@ -1,5 +1,10 @@
-﻿@model WebCollection.Models.ViewModels.ItemIndexViewModel
-           <table class="table">
+﻿@using WebCollection.Models
+@using WebCollection.Models.ViewModels
+@using Microsoft.AspNetCore.Identity
+@model WebCollection.Models.ViewModels.ItemIndexViewModel
+@inject UserManager<IdentityUser> UserManager
+
+ <table class="table">
   <thead>
     <tr>
       <th scope="col">Name</th>
@@ -13,9 +18,9 @@
 
 
   <tbody>
-        @foreach(var item in Model.IItem.GetItems(@Model.Collection.Id)) {
+        @{ var item = Model.IItem.GetItem(@Model.ItemId);
             <tr>
-                <td>@Html.ActionLink(@item.Name, "GetItem", "Item", new { id=item.Id,collectionId=@Model.Collection.Id })</td>
+                <td>@item.Name</td>
                 <td>@item.Tag</td>
                 @foreach(var collectionField in Model.IItem.GetCollectionFields(@Model.Collection.Id)) {
                     <td>
@@ -46,3 +51,9 @@
         
   </tbody>
 </table>
+@if (Model.Collection.UserId == UserManager.GetUserId(User)) {
+      
+    
+ @Html.ActionLink(Localizer.GetString("Edit") , "Edit", "Item", new {id=@Model.Collection.Id, itemId=@Model.ItemId }, new { @class = "btn btn-success"})
+ @Html.ActionLink(Localizer.GetString("Delete") , "Delete", "Item", new { itemId=@Model.ItemId, collectionId=@Model.Collection.Id }, new { @class = "btn btn-danger"})
+}

@@ -19,8 +19,20 @@ namespace WebCollection.Controllers {
         public IActionResult Create(int id) {
             return View("Edit", new ItemEditViewModel { IItem = _item, CollectionId = id ,CollectionUserId=_collection.GetCollection(id).UserId});
         }
+        public IActionResult Edit(int id, int itemId) {
+            return View("Edit", new ItemEditViewModel { IItem = _item, CollectionId = id, CollectionUserId = _collection.GetCollection(id).UserId,Id= itemId });
+        }
+        
         public IActionResult GetCollection(int id) {
             return View("Index", new ItemIndexViewModel {IItem=_item, Collection= _collection.GetCollection(id) });
+        }
+        public IActionResult GetItem(int id,int collectionId) {
+            return View("Item", new ItemIndexViewModel { IItem = _item,ItemId=id, Collection = _collection.GetCollection(collectionId) });
+        }
+
+        public IActionResult Delete(int itemId,int collectionId) {
+            _item.DeleteItem(itemId);
+            return RedirectToAction("GetCollection", "Item", new { id = collectionId });
         }
         [HttpPost]
         public ActionResult Save(ItemEditViewModel itemView) {

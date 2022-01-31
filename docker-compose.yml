@@ -11,7 +11,7 @@ services:
         ./
     #depends_on: 
     #  - sqlserver_db
-    command: dotnet watch --project ./app run --urls "http://0.0.0.0:5001"
+    command: dotnet watch --project ./app run --urls "http://0.0.0.0:5002"
     ports:
-      - "5001:5001"
+      - "5002:5002"
   

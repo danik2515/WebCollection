@@ -8,7 +8,7 @@ using System;
 using WebCollection.Data;
 
 namespace WebCollection.Data.Migrations {
-    [DbContext(typeof(ApplicationIdentityDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema {
         protected override void BuildTargetModel(ModelBuilder modelBuilder) {
