@@ -1,0 +1,48 @@
+﻿@model WebCollection.Models.ViewModels.ItemIndexViewModel
+           <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Tag</th>
+
+      @foreach(var name in Model.IItem.GetCollectionFields(@Model.Collection.Id)) {
+                <th scope="col">@name.Name</th>
+            }
+        </tr>
+  </thead>
+
+
+  <tbody>
+        @foreach(var item in Model.IItem.GetItems(@Model.Collection.Id)) {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Tag</td>
+                @foreach(var collectionField in Model.IItem.GetCollectionFields(@Model.Collection.Id)) {
+                    <td>
+                   @{ string value = Model.IItem.GetValueField(collectionField.Id, item.Id);
+                    switch(Model.IItem.GetType(collectionField.FieldTypeId)) {
+                        case "Checkbox":
+                            if (value == "true") {
+                                <input type="checkbox" checked disabled>
+                            }
+                            else {
+                                 <input type="checkbox" disabled>
+                            }
+                            break;
+                            case "Text":
+                            @Html.Raw(value)
+                            break;
+                            default:
+                            <text>
+                                @value
+                            </text>
+                            break;
+                      
+                    } }
+                   </td>
+                }
+                 </tr>
+        }
+        
+  </tbody>
+</table>

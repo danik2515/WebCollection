@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if (SignInManager.IsSignedIn(User)) {
+    <p>
+         @Html.ActionLink(Localizer.GetString("Create") , "Create", "Collection", new { }, new { @class = "btn btn-success"})
+        
+    </p>
+}
+<body class="text-center">
+    <h1 class="display-4">@Localizer["Collection"]</h1>
+    <partial name="CollectionsList" />
+</body>

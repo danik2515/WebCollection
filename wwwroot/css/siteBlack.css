@@ -1,0 +1,48 @@
+
+
+body.black {
+    background: #212529;
+    color: white;
+}
+body.black header{
+    background: black;
+}
+
+
+
+
+    body.black .box-shadow {
+        box-shadow: 0 0.25rem 0.75rem #f9fafb;
+    }
+
+
+
+    body.black .footer{
+        background: black;
+    }
+    body.black .nav-link {
+        color: white;
+    }
+        body.black .nav-link:hover:not(.active) {
+            color: grey;
+        }
+    body.black .text-muted {
+        --bs-text-opacity: 1;
+        color: white !important;
+    }
+
+body.black .navbar-toggler {
+    background-color: dimgrey;
+}
+
+    body.black .table {
+        --bs-table-bg: #212529;
+        --bs-table-striped-bg: #2c3034;
+        --bs-table-striped-color: #fff;
+        --bs-table-active-bg: #373b3e;
+        --bs-table-active-color: #fff;
+        --bs-table-hover-bg: #323539;
+        --bs-table-hover-color: #fff;
+        color: #fff;
+        border-color: #373b3e;
+    }

@@ -1,0 +1,29 @@
+﻿@using WebCollection.Models 
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@model WebCollection.Models.ViewModels.ItemIndexViewModel
+
+<div>
+            <h2 class>@Model.Collection.Name</h2>
+            <div class="row">
+            <div class= "col-md-auto">
+            <img style='width:600px; height:400px;' border="2" src= "https://res.cloudinary.com/di0gr2oku/image/upload/c_fill,h_400,w_600/v1643481730/@Model.Collection.ImageId"  />
+            </div>
+            <div class= "col">
+            <h4 class>Описание:</h4>
+            @Html.Raw(Model.Collection.Description)
+            <h4 class>Автор: @UserManager.FindByIdAsync(Model.Collection.UserId).Result.UserName </h4>
+                   
+                </div>
+            </div>
+
+            <a href="/Item/Create/@Model.Collection.Id" class="btn btn-success">Create Item</a>
+
+            
+            
+    
+ <h1 class="display-4">Items:</h1>
+    <partial name="ItemList" />
+
+
+            </div>

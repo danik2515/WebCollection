@@ -1,0 +1,118 @@
+﻿@using WebCollection.Models
+@using Microsoft.AspNetCore.Identity
+@model WebCollection.Models.ViewModels.CollcetionCreateViewModel
+@inject UserManager<IdentityUser> UserManager
+
+<script>
+function newField() {
+    let container = document.getElementById("fields"); 
+    let fieldCount = container.getElementsByTagName("input").length;
+    let nextFieldId = fieldCount + 1;
+     let div = document.createElement("div");
+     div.setAttribute("class", "row form-group");
+     div.setAttribute("id", "Field[" + nextFieldId + "]");
+    let divField = document.createElement("div");
+        divField.setAttribute("class", "col-8 form-group");
+       
+
+    let field = document.createElement("input");
+        field.setAttribute("class", "form-control");
+        field.setAttribute("name", "NameFields");
+        field.setAttribute("type", "text");
+        field.setAttribute("placeholder", "Name field");
+        field.setAttribute("required", "");
+    let type = document.createElement("select");
+        type.setAttribute("class", "form-control");
+        type.setAttribute("id", "Field[" + nextFieldId + "]");
+        type.setAttribute("name", "TypeFields");
+
+
+        @foreach(var fieldType in Model.IItem.FieldTypes) {
+            <text>
+            type.appendChild(new Option("@fieldType.Name","@fieldType.Name"));
+            </text>
+        }
+
+
+        divField.appendChild(field);
+        div.appendChild(divField);
+  
+    let divType = document.createElement("div");
+        divType.setAttribute("class", "col-4 form-group");
+        divType.appendChild(type);
+        div.appendChild(divType);
+        container.appendChild(div);
+}
+
+function deleteField(){
+
+    let container = document.getElementById("fields"); 
+    let fieldCount = container.getElementsByTagName("input").length;
+    let description = document.getElementById("Field[" + fieldCount + "]");
+    description.parentNode.removeChild(description);
+}
+</script>
+
+<h2>Create collection</h2>
+
+
+   
+    
+        <form asp-action="Create" asp-controller="Collection" method="post" enctype="multipart/form-data">
+    <p>
+        <label>Name</label>
+        
+        <input name="Name" asp-for="Name" class="form-control"  />
+        <span asp-validation-for="Name"></span>
+    </p>
+     <p>
+        <label>Description</label>
+        <textarea cols="10" rows="3" name="Description"  ></textarea>
+        <span >@Html.Raw(Model.Description)</span>
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.0.20/tinymce.min.js" ></script>
+    <script type="text/javascript" >
+        tinymce.init({ selector: 'textarea', width: 500 });
+    </script>
+
+    </p>
+    <p>
+        <label>Image</label>
+        <input name="IFormFile" type="file" class="form-control"  accept=".png, .jpg, .jpeg" />
+    </p>
+    <p>
+        <label>Theme</label>
+        <select id="ThemeId" name="ThemeId">
+    @foreach (var theme in Model.ITheme.Themes)
+    {
+        <option value="@theme.Id">@theme.Name</option>
+    }
+</select>
+    </p>
+    <p>
+      <button type="button" id="btnScore" class="btn btn-primary"
+                onclick="newField()">Add new field</button>
+                 <button type="button" id="btnScore" class="btn btn-primary"
+                onclick="deleteField()()">Delete field</button>
+        </p>
+        
+    <div id="fields"  ></div>
+    
+
+    <p>
+        <input type="submit" class="btn btn-primary" value="Add" />
+    </p>
+    <input type="hidden" id="currentUserId" name="currentUserId" value=@UserManager.GetUserId(User) /> 
+        </form>
+          
+          <a href="/Home/Index" class="btn btn-primary">Back</a>
+        
+
+
+
+
+ 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+   

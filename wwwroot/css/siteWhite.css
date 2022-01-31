@@ -1,0 +1,23 @@
+
+body.white {
+    background: white;
+}
+body.white header {
+    background: white;
+}
+
+
+
+
+    body.white .box-shadow {
+        box-shadow: 0 0.25rem 0.75rem black;
+    }
+body.white .nav-link:hover:not(.active) {
+    color: darkgrey;
+}
+    body.white .nav-link {
+        color: black;
+    }
+body.white .navbar-toggler {
+    background-color: lightgray;
+}

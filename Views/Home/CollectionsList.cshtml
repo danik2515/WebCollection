@@ -1,0 +1,26 @@
+﻿@using WebCollection.Models
+@using WebCollection.Models.ViewModels
+@using Microsoft.AspNetCore.Identity
+@model CollectionIndexViewModel
+@inject UserManager<IdentityUser> UserManager
+
+@{
+        foreach(var collection in Model.Collections) {
+            <div>
+             <h2 class>@Html.ActionLink(@collection.Name, "GetCollection", "Item", new { id=collection.Id }, null)</h2>
+            <div class="row">
+            <div class= "col-md-auto">
+            <a href ="Item/GetCollection/@collection.Id"><img style='width:300px; height:300px;' border="2" src= "https://res.cloudinary.com/di0gr2oku/image/upload/c_fill,h_300,w_300/v1643481730/@collection.ImageId"  /></a>
+            </div>
+            <div class= "col">
+            <h4 class>Описание:</h4>
+            @Html.Raw(collection.Description)
+            <h4 class>Автор: @UserManager.FindByIdAsync(collection.UserId).Result.UserName </h4>
+                    @if (collection.ThemeId != 0) {
+                        <h4 class>Тема: @Model.ITheme.GetTheme(collection.ThemeId).Name</h4>
+                    }
+                </div>
+            </div>
+            </div>
+        }
+    }
